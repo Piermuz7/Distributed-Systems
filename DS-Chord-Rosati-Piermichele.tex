@@ -1,0 +1,225 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MSc BIS Thesis 
+% LaTeX Template
+% Version 1.0 (29/08/2014)
+%
+% Original authors:
+% Steven Gunn 
+% Sunil Patel
+%
+% Further authors:
+% Michael Stauffer
+% 
+% This template is based on
+% http://www.latextemplates.com/template/masters-doctoral-thesis
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+% For digital publication it is recommended to use a one-sided layout
+\documentclass[11pt, oneside]{thesis}
+\addbibresource{bibliography.bib}
+
+% For printing it is recommended to use a two-sided layout
+%\documentclass[11pt, twoside]{Thesis}
+
+\makeglossaries
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT VARIABLES
+%	Fill in the lines below to update the thesis template
+%	
+%   If you want to cite each of the variables defined below, look at the
+%	section above for the citation command.
+%----------------------------------------------------------------------------------------
+
+% You thesis title
+% Citation command \thesisTitle
+\thesisTitle{Chord Framework for P2P}
+%-------------------------------------------------  
+
+% You supervisor's name Unicam or FHNW
+% Citation command \supName 
+\supervisor{Prof. Michele Loreti}
+%-------------------------------------------------  
+\cosupervisorfalse
+
+\degree{Business Information Systems}
+\degreeTwo{Computer Science}
+%-------------------------------------------------   
+
+% Your name
+% Citation command \authorName
+\authors{Piermichele \textsc{Rosati}}
+\matricola{124176}%
+\academicyear{2023/2024}%
+%-------------------------------------------------
+
+% Your URL
+% Citation command \authorURL
+\authorsURL{http://www.johnsmith.com}
+%-------------------------------------------------
+
+% Your address (not used)
+% Citation command \addressNames
+\addresses{}
+%-------------------------------------------------
+
+% Your subject area (not used) 
+% Citation command \subjectName
+\subject{}
+%-------------------------------------------------   
+
+% Keywords for your thesis (not used)
+% Citation command \keywordNames 
+\keywords{}
+%-------------------------------------------------
+
+
+%----------------------------------------------------------------------------------------
+%	GLOSSARY
+%	Add your glossary terms below
+%	
+%   If you want to cite a glossary term simply use \gls{term) for the singular form 
+%   of the term or \glspl{term} for the plural form of the term.
+%----------------------------------------------------------------------------------------
+
+\newglossaryentry{Java}{
+    name={Java},
+    description={\blindtext}
+}
+
+\newglossaryentry{Oracle}{
+    name={Oracle},
+    description={\blindtext}
+}
+
+\newglossaryentry{Microsoft}{
+    name={Microsoft},
+    description={\blindtext}
+}
+
+%----------------------------------------------------------------------------------------
+%	ABBREVIATIONS
+%	Add your glossary terms below
+%	
+%   If you want to cite an abbreviation term simply use \gls{term) for the singular form  
+%   of the term or \glspl{term} for the plural form of the term.
+%----------------------------------------------------------------------------------------
+
+\newacronym{test}{Test}{T e s T}
+
+% PDF meta-data
+\hypersetup{pdftitle={\thesisTitle}}
+\hypersetup{pdfsubject=\subjectName}
+\hypersetup{pdfauthor=\authorName}
+\hypersetup{pdfkeywords=\keywordNames}
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\titlePage
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+
+\input{chapters/abstract.tex}
+
+\clearpage % Start a new page
+
+%----------------------------------------------------------------------------------------
+%	STATEMENT OF AUTHENTICITY
+%----------------------------------------------------------------------------------------
+
+\fillingPage{} 
+\statementOfAuthenticity
+
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\tableofcontents
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\fillingPage{}
+\input{chapters/introduction.tex}
+\fillingPage{}
+\input{chapters/conclusion.tex}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\fillingPage{}
+\nocite{*}
+\listOfBibliography
+
+%----------------------------------------------------------------------------------------
+%	GLOSSARY (if appropriate)
+%----------------------------------------------------------------------------------------
+
+% \fillingPage{}
+% \listOfGlossary
+
+%----------------------------------------------------------------------------------------
+%	ABBREVIATIONS (if appropriate)
+%----------------------------------------------------------------------------------------
+\fillingPage{}
+\listOfAbbreviation
+
+%%----------------------------------------------------------------------------------------
+%%	LIST OF FIGURES (optional)
+%%----------------------------------------------------------------------------------------
+
+\fillingPage{} 
+\listOfFigures
+
+%%----------------------------------------------------------------------------------------
+%%	LIST OF TABLES (optional)
+%%----------------------------------------------------------------------------------------
+
+\fillingPage{} 
+\listOfTables
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - APPENDICES (if appropriate)
+%----------------------------------------------------------------------------------------
+
+\appendix % Cue to tell LaTeX that the following 'chapters' are Appendices
+
+% Include the appendices of the thesis as separate files from the Appendices folder
+% Uncomment the lines as you write the Appendices
+
+% \fillingPage{} 
+% \input{02_Appendices/AppendixA}
+
+% \fillingPage{} 
+% \input{02_Appendices/AppendixB}
+
+%\fillingPage{} 
+%\input{02_Appendices/AppendixC}
+
+\clearpage % Start a new page
+
+\backmatter
+
+\end{document}  
