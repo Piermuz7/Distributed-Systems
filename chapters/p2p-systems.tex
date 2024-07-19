@@ -1,0 +1,24 @@
+\chapter{P2P Systems}
+\gls{p2p} systems represent a paradigm shift in the design and implementation of distributed systems.
+By distributing control and resources among all participating nodes, \gls{p2p} systems overcome many limitations of traditional client-server models.
+
+\section{Characteristics of P2P Systems}
+\begin{enumerate}
+    \item Decentralization: No single node has complete control over the network, reducing the risk of failure and improving resilience.
+    \item Scalability: \gls{p2p} networks can grow dynamically as new nodes join, without significant performance degradation.
+    \item Resource Sharing: Nodes can share their computational and storage resources directly, leading to efficient utilization.
+\end{enumerate}
+
+\section{Types of \gls{p2p} Networks}
+\begin{enumerate}
+    \item Unstructured \gls{p2p} Networks: Nodes connect randomly, making it easy to join but difficult to locate specific resources efficiently. Examples include Gnutella and Kazaa (Ripeanu, Foster, \& Iamnitchi, 2002).
+    \item Structured \gls{p2p} Networks: Nodes are organized in a structured manner, typically using a \gls{dht} for efficient resource location.
+    Chord is a prime example of a structured \gls{p2p} network.
+\end{enumerate}
+
+\section{Challenges in \gls{p2p} Systems}
+\begin{enumerate}
+    \item Security: Ensuring data integrity and preventing malicious behavior is challenging due to the lack of central control (Douceur, 2002).
+    \item Data Consistency: Maintaining consistent data across multiple nodes requires sophisticated algorithms and protocols (Tanenbaum \& Van Steen, 2007).
+    \item Efficient Resource Discovery: Locating resources efficiently in a decentralized network can be complex.
+\end{enumerate}

@@ -1,0 +1,48 @@
+\chapter{Systems Based on Chord}
+Chord's efficient and scalable architecture has inspired the development of various systems and applications in the realm of distributed computing and \gls{p2p} networks.
+
+\section{File Sharing Systems}
+One of the most common applications of Chord is in file sharing systems.
+These systems leverage Chord's \gls{dht} to store and retrieve files efficiently.
+Examples include:
+\begin{itemize}
+    \item \gls{cfs}: \gls{cfs} uses Chord to provide a robust and efficient file storage and retrieval service.
+    It distributes file blocks across multiple nodes, ensuring redundancy and fault tolerance (Dabek et al., 2001).
+    \item Ivy: Ivy is a multi-user read/write \gls{p2p} file system that uses Chord for efficient data location.
+    It allows users to collaboratively manage and share files in a decentralized manner (Muthitacharoen et al., 2002).
+\end{itemize}
+
+\section{Distributed Databases}
+Chord's principles have been applied to the design of distributed databases, providing scalable and fault-tolerant data storage solutions.
+\begin{itemize}
+    \item Dynamo: Developed by Amazon, Dynamo is a distributed key-value store that uses concepts similar to Chord for partitioning and replicating data across multiple nodes.
+    It ensures high availability and durability, even in the presence of node failures (DeCandia et al., 2007).
+    \item Cassandra: Cassandra is a highly scalable distributed database that employs a Chord-like \gls{dht} for data distribution.
+    It provides a decentralized and fault-tolerant architecture, making it suitable for large-scale applications (Lakshman \& Malik, 2010).
+\end{itemize}
+
+\section{\glspl{cdn}}
+
+Chord's efficient resource discovery and routing capabilities make it a suitable choice for content distribution networks.
+\begin{itemize}
+    \item Coral: Coral is a content distribution network that uses Chord to locate and distribute web content efficiently.
+    It reduces the load on origin servers and enhances the scalability of content delivery (Freedman et al., 2004).
+    \item Vuze: Vuze, a popular BitTorrent client, utilizes Chord to manage its \gls{dht} for peer discovery and content distribution.
+    It enables efficient sharing and downloading of large files in a decentralized manner.
+\end{itemize}
+
+\section{Distributed Computing}
+Chord has also been used in distributed computing platforms to manage and allocate computational resources.
+\begin{itemize}
+    \item \acrshort{boinc}: The \gls{boinc} uses Chord-like \glspl{dht} to manage and distribute computational tasks across volunteer nodes.
+    It supports large-scale scientific computing projects by leveraging the idle processing power of participant computers (Anderson, 2004).
+    \item SETI@home: SETI@home, a distributed computing project aimed at analyzing radio signals for signs of extraterrestrial intelligence, employs Chord to efficiently distribute and manage data analysis tasks across a global network of volunteer computers (Anderson et al., 2002).
+\end{itemize}
+
+\section{Sensor Networks}
+Chord has also been adapted for use in sensor networks, where efficient data aggregation and query processing are critical.
+\begin{itemize}
+    \item ChordGrid: ChordGrid is an infrastructure for sensor networks that combines the Chord protocol with grid computing techniques.
+    It enables efficient data aggregation and processing across distributed sensor nodes (Zhang et al., 2005).
+    \item SensorGrid: SensorGrid leverages Chord's \gls{dht} to provide a scalable and fault-tolerant architecture for sensor networks, allowing for efficient data collection and query processing (Yuan et al., 2005).
+\end{itemize}

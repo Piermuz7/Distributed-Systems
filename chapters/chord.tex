@@ -1,0 +1,45 @@
+\chapter{Chord System}
+The Chord protocol is designed to address the challenges of efficient resource discovery and management in \gls{p2p} systems.
+It provides a robust and scalable solution for locating nodes and data in a distributed network.
+
+\section{Architecture of Chord}
+
+Chord organizes nodes in a circular identifier space using consistent hashing.
+Each node and data item is assigned a unique identifier, ensuring uniform distribution across the identifier space.
+
+\subsection{Node Identifiers and Consistent Hashing}
+Chord uses a consistent hash function, such as SHA-1, to generate identifiers for nodes and data items.
+These identifiers are arranged in a circular space, often referred to as an identifier ring.
+The position of each node and data item on this ring is determined by their hash value (Stoica et al., 2001).
+
+\subsection{Finger Tables}
+Each Chord node maintains a routing table known as a finger table.
+The finger table of a node \(n\) contains up to \(m\) entries, where \(m\) is the number of bits in the identifier.
+The \(i\)th entry in the finger table of node \(n\) points to the first node that succeeds \(n + 2^{i-1}\) on the identifier circle.
+This allows nodes to efficiently route queries by skipping intermediate nodes and reducing the number of hops (Stoica et al., 2001).
+
+\subsection{Lookups and Routing}
+When a node needs to locate a data item, it generates the identifier for the item using the hash function.
+The node then uses its finger table to forward the query to the appropriate node responsible for the identifier.
+This process continues iteratively, with each node forwarding the query closer to the target node, until the node responsible for the data item is found.
+The expected number of hops for a lookup is \(O(\log N)\) (Stoica et al., 2001).
+
+\subsection{Joining and Leaving the Network}
+When a new node joins the Chord network, it must integrate into the existing structure.
+The joining node needs to initialize its finger table and notify other nodes of its presence.
+This involves updating finger tables of existing nodes to reflect the new node's position.
+When a node leaves the network, it transfers its data to its successor node and notifies other nodes to update their finger tables accordingly.
+Chord's protocol ensures that the system remains functional and efficient even as nodes frequently join and leave the network (Stoica et al., 2001).
+
+\section{Example of Chord in Action}
+Consider a Chord network with 8 nodes identified by the following hash values: 0, 1, 3, 6, 8, 10, 12, and 15.
+Suppose a new node with identifier 7 joins the network.
+The steps involved are:
+\begin{enumerate}
+    \item 1. The new node initializes its finger table.
+    \item The new node finds its successor (node 8) and predecessor (node 6).
+    \item Node 7 notifies nodes 6 and 8 to update their finger tables.
+    \item Data previously managed by node 8 with identifiers between 6 and 7 is transferred to node 7.
+\end{enumerate}
+
+Now, if a node wants to lookup data with identifier 11, it will use its finger table to forward the query, minimizing the number of hops until it reaches the responsible node.
