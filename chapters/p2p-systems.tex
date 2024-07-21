@@ -1,8 +1,4 @@
-\chapter{P2P Systems}
-TODO: replace references with bibtex
-TODO: add more references (i.e. BitTorrent, Chord and so on)
-
-
+\chapter{P2P Systems}\label{chap:p2p}
 \gls{p2p} systems represent a paradigm shift in the design and implementation of distributed systems.
 In other words, \gls{p2p} systems are decentralized networks where each participant, referred to as a peer, can act as both a client and a server.
 By distributing control and resources among all participating nodes, \gls{p2p} systems overcome many limitations of traditional client-server models.
@@ -27,6 +23,7 @@ Reliability in \gls{p2p} systems is achieved through redundancy and distribution
 Data and resources are typically replicated across multiple nodes, ensuring that the failure of one or more peers does not result in data loss or service interruption.
 This redundancy, combined with the system's ability to dynamically reconfigure and redistribute load, contributes to the high availability and reliability of \gls{p2p} networks.
 Structured \gls{p2p} systems, like Chord, maintain consistent data access and integrity through well-defined algorithms that handle node join and leave operations gracefully (\cite{stoica2001,zarrin2017}).
+The Chord protocol will be discussed in more detail in the Chapter \ref{chap:chord}.
 
 Resource sharing is an inherent characteristic of \gls{p2p} systems, where each peer contributes its own resources, such as bandwidth, storage, and computing power, to the network.
 This sharing mechanism leads to a more efficient utilization of available resources compared to traditional systems.
@@ -94,7 +91,7 @@ Otherwise, the query continues to propagate through the network until the resour
 
 \subsubsection*{Real-World Applications}
 Unstructured \gls{p2p} systems are widely used in various real-world applications due to their simplicity and robustness.
-One notable example is BitTorrent, a popular protocol for distributing large files.
+According to \cite{BitTorrent2005}, one notable example is BitTorrent, a popular protocol for distributing large files.
 BitTorrent divides files into smaller chunks and allows peers to download and upload chunks concurrently.
 This reduces the load on any single peer and improves the overall efficiency of file distribution (\cite{cohen2003incentives}).
 
@@ -148,7 +145,7 @@ Fig. \ref{fig:BitTorrent} illustrates how the \gls{dht} in BitTorrent operates d
 \begin{tikzpicture}
   % Nodes on the ring
   \foreach \i in {0,1,...,7} {
-    \node[circle, draw, minimum size=0.8cm] (n\i) at (\i*45:3cm) {N\i};
+    \node[circle, draw, minimum size=0.8cm] (n\i) at (\i*45:3cm) {$N_\i$};
   }
   % Connections between nodes
   \foreach \i/\j in {0/1, 1/2, 2/3, 3/4, 4/5, 5/6, 6/7, 7/0} {
@@ -159,28 +156,28 @@ Fig. \ref{fig:BitTorrent} illustrates how the \gls{dht} in BitTorrent operates d
   \draw[->, red] (n0) -- (n3);
   \draw[->, red] (n0) -- (n5);
   \draw[->, red] (n0) -- (n7);
-  \node at (0,-4) {Example of finger table for N0: [N1, N3, N5, N7]};
+  \node at (0,-4) {Example of finger table for $N_0$: [$N_1, N_3, N_5, N_7$]};
 \end{tikzpicture}
 \caption{BitTorrent, an example of unstructured \gls{p2p} network}
 \label{fig:BitTorrent}
 \end{figure}
 
-In this example, node $( N0 )$ has a finger table containing nodes $( N1, N3, N5, )$ and $( N7 )$.
-When $( N0 )$ wants to find a key (representing a torrent or a peer holding pieces of a torrent), it consults its finger table to determine the closest preceding node and forwards the query until it reaches the node responsible for the key.
-This ensures that the lookup operation is performed efficiently, typically within $\mathcal{O}(\log N)$ hops.
+In this example, node $N_0$ has a finger table containing nodes $N_1, N_3, N_5$ and $N_7$.
+When $N_0$ wants to find a key (representing a torrent or a peer holding pieces of a torrent), it consults its finger table to determine the closest preceding node and forwards the query until it reaches the node responsible for the key.
+This ensures that the lookup operation is performed efficiently, typically within $\mathcal{O}(\log n)$ hops.
 
 \subsubsection*{Real-World Applications}
 Structured \gls{p2p} systems have found application in various domains due to their efficiency and scalability.
 Some notable real-world applications include \glspl{cdn}, distributed storage systems, and \gls{dns}.
 Systems like BitTorrent utilize structured overlays to efficiently locate and distribute files among peers (\cite{cohen2003incentives}).
 The structured approach ensures that pieces of a file can be found and downloaded quickly, even as peers join and leave the network.
-Amazon's Dynamo, a highly available key-value store, leverages \glspl{dht} to manage data replication and partitioning (DeCandia et al., 2007).
+Amazon's Dynamo, a highly available key-value store, leverages \glspl{dht} to manage data replication and partitioning (\cite{DeCandia2007}).
 Dynamo's architecture ensures that data is evenly distributed across nodes and can be retrieved even in the presence of node failures.
-The Coral \gls{cdn} uses a structured \gls{p2p} system to implement a decentralized \gls{dns} service, improving robustness and scalability (Freedman et al., 2004).
+The Coral \gls{cdn} uses a structured \gls{p2p} system to implement a decentralized \gls{dns} service, improving robustness and scalability (\cite{CoralCDN2010}).
 
 \subsubsection*{Advantages and Challenges}
 Structured \gls{p2p} systems offer several advantages that make them suitable for large-scale distributed applications.
-The deterministic nature of \glspl{dht} ensures that data can be located within a bounded number of hops, typically $\mathcal{O}(\log N)$, where $N$ is the number of nodes in the network.
+The deterministic nature of \glspl{dht} ensures that data can be located within a bounded number of hops, typically $\mathcal{O}(\log n)$, where $n$ is the number of nodes in the network.
 These systems can scale to accommodate a large number of nodes without significant degradation in performance.
 The use of consistent hashing ensures even distribution of data and load across nodes.
 Moreover, these systems are designed to handle node churn gracefully.

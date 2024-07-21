@@ -128,7 +128,8 @@
 \usepackage{booktabs} %nicer tables
 \usepackage{float}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows}
+\usetikzlibrary{positioning, shapes.geometric, arrows}
+\usepackage{fp}
 \renewcommand{\arraystretch}{1.2} %nicer tables
 \lstset{captionpos=b,
         frame=tb,
