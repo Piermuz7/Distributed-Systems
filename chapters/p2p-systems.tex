@@ -168,6 +168,8 @@ Fig. \ref{fig:BitTorrent} illustrates how the \gls{dht} in BitTorrent operates d
 In this example, node $N_0$ has a finger table containing nodes $N_1, N_3, N_5$ and $N_7$.
 When $N_0$ wants to find a key (representing a torrent or a peer holding pieces of a torrent), it consults its finger table to determine the closest preceding node and forwards the query until it reaches the node responsible for the key.
 This ensures that the lookup operation is performed efficiently, typically within $\mathcal{O}(\log n)$ hops.
+Finger tables have been mentioned in this example, without spontaneously explaining what they are and what they are used for.
+A full explanation of them can be found in Section \ref{sec:finger-tables}.
 
 \subsubsection*{Real-World Applications}
 Structured \gls{p2p} systems have found application in various domains due to their efficiency and scalability.
