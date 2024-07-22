@@ -1,23 +1,22 @@
 \chapter{P2P Systems}\label{chap:p2p}
 \gls{p2p} systems represent a paradigm shift in the design and implementation of distributed systems.
-In other words, \gls{p2p} systems are decentralized networks where each participant, referred to as a peer, can act as both a client and a server.
+In other words, \gls{p2p} systems are decentralized networks where each participant, referred to as a peer, can act as both a client and a server (referred also as servant).
 By distributing control and resources among all participating nodes, \gls{p2p} systems overcome many limitations of traditional client-server models.
 Unlike the latter, P2P systems leverage the computing power and resources of all the nodes in the network, enabling more scalable and resilient architectures.
 
 \section{Characteristics of P2P Systems}
-\gls{p2p} systems are characterized by their decentralized architecture, where each participant, or peer, can function as both a client and a server (referred also as servant).
-This decentralized nature eliminates the need for a central coordinating authority, which distinguishes \gls{p2p} systems from traditional client-server models.
+The decentralized nature of \gls{p2p} systems eliminates the need for a central coordinating authority, which distinguishes \gls{p2p} systems from traditional client-server models.
 In a \gls{p2p} network, every node can initiate or respond to requests, share resources, and contribute to the network's overall functionality, leading to important following characteristics.
 
 Decentralization is one of the most fundamental attributes of \gls{p2p} systems.
 In these networks, there is no single point of failure or control, which enhances the robustness and resilience of the system.
 Each peer operates independently, yet cooperatively, participating in the collective maintenance of the network.
-This independence ensures that the failure of a single node or a group of nodes does not cripple the entire network, making \gls{p2p} systems highly fault-tolerant (\cite{singh2020}).
+This independence ensures that the failure of a single node or a group of nodes does not damage the entire network, making \gls{p2p} systems highly fault-tolerant (\cite{singh2020}).
 
 Scalability is another significant characteristic of \gls{p2p} systems.
 As more peers join the network, the total capacity and available resources increase proportionally.
 This growth is organic and does not require significant reconfiguration or central administration.
-In structured \gls{p2p} systems, scalability is further enhanced by algorithms such as \glspl{dht}, which ensure that data storage and retrieval operations scale logarithmically with the number of nodes, allowing the network to handle large numbers of peers efficiently (\cite{singh2020}) (Stoica et al., 2001; Rowstron \& Druschel, 2001).
+In structured \gls{p2p} systems, scalability is further enhanced by algorithms such as \glspl{dht}, which ensure that data storage and retrieval operations scale logarithmically with the number of nodes, allowing the network to handle large numbers of peers efficiently (\cite{singh2020}).
 
 Reliability in \gls{p2p} systems is achieved through redundancy and distribution.
 Data and resources are typically replicated across multiple nodes, ensuring that the failure of one or more peers does not result in data loss or service interruption.
@@ -39,6 +38,8 @@ The decentralized nature reduces the risk of centralized attacks, but it also in
 Effective security measures, such as cryptographic techniques, reputation systems, and robust algorithms for identity verification, are crucial for maintaining the integrity and trustworthiness of \gls{p2p} networks.
 
 \section{Types of \gls{p2p} Networks}
+There are two types of overlay networks: structured and unstructured.
+These networks and their differences are described below.
 \subsection{Unstructured \gls{p2p} Networks}
 In unstructured \gls{p2p} systems, peers are connected arbitrarily.
 There is no fixed topology, and the network is highly dynamic.
@@ -55,7 +56,7 @@ For example, if each peer forwards a query to $k$ neighbors, the total number of
 where $N(t)$ is the number of peers queried, and $k$ is the average number of neighbors each peer forwards the query to.
 This exponential growth illustrates the flooding nature of query propagation in unstructured networks (\cite{singh2020}).
 
-As we can see in Fig. \ref{fig:gnutella}, Gnutella is a classic example of an unstructured P2P network.
+Fig. \ref{fig:gnutella} illustrates Gnutella, a classic example of an unstructured P2P network.
 In Gnutella, each peer maintains a list of its neighbors and sends query messages to them.
 If a neighbor has the requested resource, it responds; otherwise, it forwards the query to its own neighbors.
 This flooding mechanism continues until the resource is found or the query's \gls{ttl} expires.
@@ -90,12 +91,20 @@ If peer $E$ has the requested resource, it will respond to the query.
 Otherwise, the query continues to propagate through the network until the resource is found or the query's \gls{ttl} expires.
 
 \subsubsection*{Real-World Applications}
-Unstructured \gls{p2p} systems are widely used in various real-world applications due to their simplicity and robustness.
-According to \cite{BitTorrent2005}, one notable example is BitTorrent, a popular protocol for distributing large files.
-BitTorrent divides files into smaller chunks and allows peers to download and upload chunks concurrently.
-This reduces the load on any single peer and improves the overall efficiency of file distribution (\cite{cohen2003incentives}).
+One example of an unstructured \gls{p2p} system is the Freenet network.
+Freenet is designed to provide anonymous and censorship-resistant data storage and retrieval.
+In this system, nodes contribute storage space and bandwidth, and data is distributed across the network without any centralized control.
+Nodes communicate with each other to store and retrieve files based on a key-based routing mechanism.
+However, there is no predetermined structure or organization of nodes; instead, each node dynamically finds neighbors and routes requests through them.
+This unstructured approach enhances the anonymity and resilience of the network, making it difficult for any single entity to control or censor the content (\cite{Clarke2001}).
 
-Another example is the early version of Napster, which was an unstructured \gls{p2p} file-sharing service that allowed users to share and download music files directly from each other's computers.
+Another example of an unstructured \gls{p2p} system is the Kazaa network.
+Kazaa was a popular file-sharing network where users could share and download various types of files, such as music, videos, and software.
+In Kazaa, nodes connect randomly to other nodes without a central directory or predefined organization, forming a loosely structured network.
+When a user searches for a file, the search request is propagated through the network to find nodes that have the desired file.
+This results in a decentralized and flexible system, but it can lead to high network traffic and inefficiency in locating specific files (\cite{liang2005kazaa}).
+Despite these challenges, Kazaa's unstructured nature provided robustness and allowed for a large and dynamic user base.
+
 
 \subsubsection*{Advantages and Challenges}
 Unstructured \gls{p2p} systems offer several advantages.
@@ -119,22 +128,16 @@ Key-value pairs are stored within the \gls{dht}, and any node in the network can
 The primary operations supported by a \gls{dht} are insertion, lookup, and deletion of key-value pairs.
 
 Hashing is the fundamental operation in a \gls{dht}, responsible for mapping keys to a fixed-size identifier space.
-Typically, a cryptographic hash function $h$ is employed to ensure uniform distribution of keys.
-For example, SHA-1 or MD5 can be used as follows:
+Typically, a cryptographic hash function $H$ is employed to ensure uniform distribution of keys.
+Each node in the network is assigned a number (called ``identifier'' or ID) on a ring using a hash function.
+Each ID has $m$ bits; there are $2^m$ IDs available and the IDs range from 0 to $(2^m) -1$.
 
-\[h: \{0,1\}^* \rightarrow \{0,1\}^{m} \]
-
-where $m$ is the length of the hash output.
-Both nodes and data items are assigned unique identifiers by hashing their respective addresses or keys.
-This ensures that each node is responsible for a contiguous segment of the identifier space.
-The identifier space is usually visualized as a circular ring of size $2^m$.
-
-BitTorrent is a widely used \gls{p2p} protocol that leverages structured overlays for efficient content distribution.
-BitTorrent's structured \gls{p2p} network employs a \gls{dht} to facilitate the lookup of peers that hold pieces of the desired content.
+BitTorrent is a widely used \gls{p2p} protocol that leverages structured overlays for efficient content distribution (\cite{BitTorrent2005}).
+BitTorrent's structured \gls{p2p} network uses a \gls{dht} to facilitate the lookup of peers that hold pieces of the desired content.
 When a user wants to download a file, BitTorrent breaks the file into smaller pieces, and peers exchange these pieces with each other.
 To efficiently locate which peers have which pieces, BitTorrent uses a \gls{dht}.
 
-In BitTorrent, the \gls{dht} is used to store and retrieve metadata about torrents.
+Moreover, in BitTorrent, the \gls{dht} is used to store and retrieve metadata about torrents.
 The metadata includes information about which peers possess which pieces of the file.
 When a peer joins the network, it announces its presence by publishing its information in the \gls{dht} using a key derived from the torrent's identifier.
 Other peers looking for that particular torrent can query the \gls{dht} using the same key to find the list of peers holding the pieces of the file.
@@ -158,7 +161,7 @@ Fig. \ref{fig:BitTorrent} illustrates how the \gls{dht} in BitTorrent operates d
   \draw[->, red] (n0) -- (n7);
   \node at (0,-4) {Example of finger table for $N_0$: [$N_1, N_3, N_5, N_7$]};
 \end{tikzpicture}
-\caption{BitTorrent, an example of unstructured \gls{p2p} network}
+\caption{BitTorrent, an example of unstructured \gls{p2p} network.}
 \label{fig:BitTorrent}
 \end{figure}
 
@@ -195,7 +198,7 @@ Nodes with identifiers close to popular keys may experience higher loads, necess
 The comparison between unstructured and structured \gls{p2p} systems reveals significant differences in various aspects such as scalability, reliability, transparency and load balancing, complexity, security, data consistency, resource discovery, and performance.
 
 Structured \gls{p2p} systems are designed with scalability in mind.
-They employ deterministic algorithms and \glspl{dht} to manage resources efficiently.
+They use deterministic algorithms and \glspl{dht} to manage resources efficiently.
 This allows them to grow significantly without a proportional increase in the time required to locate resources, as the lookup time typically scales logarithmically with the number of nodes in the network, denoted as \(\mathcal{O}(\log N)\).
 In contrast, unstructured \gls{p2p} systems rely on techniques like flooding or random walks for resource discovery, which can lead to significant scalability issues.
 As the network expands, the number of messages required to find resources increases dramatically, causing network congestion and higher latency.

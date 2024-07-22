@@ -65,8 +65,6 @@ The list below shows which nodes are responsible for which entities:
 \section{Finger Tables}
 For peers in a Chord network to locate each other, each peer must be aware of at least one other peer in the network.
 Specifically, each peer needs to know the IP address (along with the TCP or UDP port) of their nearest neighbor in terms of identifier in the Chord network.
-This is illustrated in the Fig. \ref{fig:chord-ring-peer-neighbours} above, where each node is aware of its immediate neighbors:
-
 \begin{figure}[htbp]
     \centering
 \begin{tikzpicture}
@@ -86,6 +84,8 @@ This is illustrated in the Fig. \ref{fig:chord-ring-peer-neighbours} above, wher
 \label{fig:chord-ring-peer-neighbours}
 \end{figure}
 
+This is illustrated in the Fig. \ref{fig:chord-ring-peer-neighbours}, where each node is aware of its immediate neighbors.
+
 By knowing only the nearest neighboring peer in the network, it is still possible to find any peer.
 The lookup algorithm works as follows:
 \begin{enumerate}
@@ -98,14 +98,13 @@ The lookup algorithm works as follows:
     \end{itemize}
 \end{enumerate}
 
-Using this straightforward algorithm, the searching peer will eventually query all peers in the network, one at a time, until it finds the target peer or concludes that the closest peer it knows is itself, which will occur after a complete round in the network.
+Using this simple algorithm, the searching peer will eventually query all peers in the network, one at a time, until it finds the target peer or concludes that the closest peer it knows is itself, which will occur after a complete round in the network.
 
-However, relying solely on the nearest neighbor results in a lookup time of $\mathcal{O}(N)$, meaning the lookup time increases linearly with the number of peers in the Chord network.
+However, only relying on the nearest neighbor results in a lookup time of $\mathcal{O}(N)$, meaning the lookup time increases linearly with the number of peers in the Chord network.
 Chord addresses this problem with a more efficient solution.
-
-To improve lookup times, the Chord finger table is structured so that each peer maintains pointers (entries) to more than just their nearest neighbor in the Chord network.
+\\To improve lookup times, the Chord finger table (also called routing table) is structured so that each peer maintains pointers (entries) to more than just their nearest neighbor in the Chord network.
 The finger table of a node \(n\) contains up to \(m\) entries, where \(m\) is the number of bits in the identifier.
-The \(i\)th entry in the finger table of node \(n\) points to the first node that succeeds \(n + 2^{i-1}\) on the identifier circle.
+The $i-$th entry in the finger table of node \(n\) points to the first node that succeeds \(n + 2^{i-1}\) on the identifier circle.
 This allows nodes to efficiently route queries by skipping intermediate nodes and reducing the number of hops (\cite{stoica2001}).
 In other words, finger tables accelerate the lookup process in a Chord \gls{dht} by containing shortcuts to existing nodes in the ring, thereby reducing the distance traveled during the search for a particular node.
 Each node has a finger table with the addresses of $m$ successive nodes, which is used to navigate to other nodes during lookup.
@@ -116,7 +115,7 @@ Here are some syntactical details of these finger tables commonly used in Chord 
 	\item $FT_n[i]$ represents the $i$-th successor of node $n$.
     For example, $FT_1[2]$ refers to the second successor node in the finger table of node 1.
 \end{itemize}
-Table \ref{tab:peer-routing-table} shows the finger table for a peer with ID 3 in a Chord network with 8-bit IDs.
+Table \ref{tab:peer-finger-table} shows $FT_3$, the finger table for a peer with ID 3 in a Chord network with 8-bit IDs.
 \begin{table}[htbp]
     \centering
     \begin{tabular}{|c|c|c|}
@@ -131,12 +130,12 @@ Table \ref{tab:peer-routing-table} shows the finger table for a peer with ID 3 i
         6 & 67 & $64 \ (2^6)$ \\ \hline
         7 & 131 & $128 \ (2^7)$ \\ \hline
     \end{tabular}
-    \caption{A peer routing table for peer with ID 3 (8 bit ID size)}
-    \label{tab:peer-routing-table}
+    \caption{A peer finger table for peer with ID 3 (8 bit ID size).}
+    \label{tab:peer-finger-table}
 \end{table}
 
 The first 4 references of the peer with ID 3 are illustrated in Fig. \ref{fig:chord-ring-16-peers-4-references-peer-3}.
-It provides a sense of how the exponentially increasing distances of references appear in a virtual Chord ring (network):
+It provides a sense of how the exponentially increasing distances of references appear in a virtual Chord ring:
 
 \begin{figure}[htbp]
     \centering
@@ -165,12 +164,12 @@ It provides a sense of how the exponentially increasing distances of references 
         \draw[->, thick] (C3) -- (C11);
         
     \end{tikzpicture}
-    \caption{Chord ring with 16 peers.}
+    \caption{Chord ring with 16 peers. The first 4 references of the peer with ID 3 are represented by the arrows.}
     \label{fig:chord-ring-16-peers-4-references-peer-3}
 \end{figure}
 
 \section{Lookups and Routing}
-As explained in the previous section, when a node needs to locate a data item, it generates the identifier for the item using the hash function.
+As explained in the previous section, when a node needs to locate a data item, it generates the identifier for the item using the hash function $H$.
 The node then uses its finger table to forward the query to the appropriate node responsible for the identifier.
 This process continues iteratively, with each node forwarding the query closer to the target node, until the node responsible for the data item is found.
 The expected number of hops for a lookup is \(O(\log N)\) (\cite{stoica2001}).
@@ -179,7 +178,7 @@ The expected number of hops for a lookup is \(O(\log N)\) (\cite{stoica2001}).
 To better understand how the Chord lookup algorithm works, let's examine a lookup example.
 In this scenario, the peer with ID 3 needs to locate the peer with ID 2.
 
-Firstly, here are the routing tables for the peers involved in this specific lookup (peers 3, 11, 15, and 1):
+Firstly, here are the finger tables for the peers involved in this specific lookup (peers 3, 11, 15, and 1):
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -215,13 +214,13 @@ Firstly, here are the routing tables for the peers involved in this specific loo
         \draw[->, thick] (C1) -- (C2);
         
     \end{tikzpicture}
-    \caption{Chord lookup example}
+    \caption{Chord lookup example.}
     \label{fig:chord-ring-16-peers-lookup-example}
 \end{figure}
 
 The lookup process proceeds as follows:
 \begin{enumerate}
-    \item The peer with ID 3 first examines its own routing table and identifies the peer with the closest ID to 2, which is the peer with ID 11;
+    \item The peer with ID 3 first examines its own finger table and identifies the peer with the closest ID to 2, which is the peer with ID 11;
 	\item The searching peer then contacts the peer with ID 11 and inquires about the closest peer it knows to the peer with ID 2. The peer with ID 11 points to the peer with ID 15;
 	\item Next, the searching peer contacts the peer with ID 15 and asks for the closest peer it knows to the peer with ID 2. The peer with ID 15 points to the peer with ID 1;
 	\item The searching peer then contacts the peer with ID 1 and asks for the closest peer it knows to the peer with ID 2. The peer with ID 1 points to the peer with ID 2.
@@ -266,7 +265,7 @@ These steps are illustrated in Fig. \ref{fig:chord-example-lookup-steps}. The re
         \draw[->, thick, red] (C1) -- (C2);
         
     \end{tikzpicture}
-    \caption{Chord lookup example: lookup steps}
+    \caption{Example of Chord lookup steps.}
     \label{fig:chord-example-lookup-steps}
 \end{figure}
 
@@ -289,10 +288,35 @@ Chord's protocol is designed to handle frequent join and leave operations seamle
 This self-healing capability of the Chord network allows it to maintain consistent data availability and efficient routing performance.
 The protocol dynamically adjusts the finger tables and data responsibilities, minimizing the impact of node churn on the overall system.
 
-Furthermore, Chord employs stabilization protocols that periodically run to correct any inconsistencies in the finger tables and ensure all nodes have accurate and up-to-date routing information.
+Furthermore, Chord uses stabilization protocols that periodically run to correct any inconsistencies in the finger tables and ensure all nodes have accurate and up-to-date routing information.
 These stabilization routines help in maintaining the correctness and performance of the network despite the continuous changes in its composition.
 
 By effectively managing the joining and leaving of nodes, Chord ensures that the \gls{dht} structure remains functional, providing a scalable and resilient platform for distributed applications.
 
 Chord's ability to adapt to the dynamic nature of \gls{p2p} networks, where nodes frequently join and leave, highlights its efficiency and reliability.
 The protocol's mechanisms for updating finger tables and redistributing data ensure that the network can sustain a high degree of availability and performance, which are crucial for the practical deployment of distributed systems (\cite{stoica2001}).
+
+\section{Advantages and Limitations}
+One of the primary advantages of Chord is its scalability.
+The protocol can efficiently manage a large number of nodes, ensuring that as the number of nodes grows, the number of steps required to find a particular data item increases logarithmically.
+This property makes Chord highly suitable for applications requiring dynamic and scalable networks, such as \gls{p2p} systems (\cite{stoica2001}).
+Additionally, Chord provides a decentralized approach, eliminating the need for a central coordinator, which enhances fault tolerance and reduces single points of failure.
+Each node in the network maintains only a small amount of routing information about other nodes, enabling the network to handle frequent node arrivals and departures without significant disruptions.
+
+Another advantage of Chord is its simplicity and ease of implementation.
+The protocol relies on consistent hashing to distribute data across nodes uniformly, which simplifies the process of locating and retrieving data.
+This uniform distribution helps in balancing the load among nodes, preventing any single node from becoming a bottleneck (\cite{stoica2001}).
+Moreover, Chord's ring structure allows for efficient data retrieval, as each node only needs to know about its successor and a few other nodes in the ring to route queries effectively.
+
+However, Chord also has several disadvantages.
+One significant limitation is its reliance on consistent hashing, which, while effective in balancing load, can lead to suboptimal data placement and increased latency in certain scenarios.
+For example, if the hash function does not evenly distribute data, some nodes may end up handling more requests than others, leading to uneven load distribution and potential performance bottlenecks (\cite{stoica2001}).
+Additionally, Chord's performance can be impacted by network latency and the physical distribution of nodes, as the protocol does not consider the proximity of nodes when routing queries, potentially resulting in longer query times (\cite{balatsouras2022wichord}).
+
+Another disadvantage of Chord is its maintenance overhead.
+As nodes frequently join and leave the network, the protocol must constantly update its routing information to maintain consistency and ensure efficient data retrieval.
+This maintenance can introduce additional communication overhead and complexity, particularly in highly dynamic environments (\cite{stoica2001}).
+Furthermore, while Chord is designed to be fault-tolerant, it still requires mechanisms to handle node failures and recover lost data, which can add to the system's overall complexity and resource requirements.
+
+In conclusion, while the Chord protocol offers significant advantages in terms of scalability, decentralization, and simplicity, it also faces challenges related to data placement, network latency, and maintenance overhead.
+These factors must be carefully considered when implementing Chord in distributed systems to ensure optimal performance and reliability.

@@ -1,4 +1,4 @@
-\chapter{Systems Based on Chord}
+\chapter{Systems Based on Chord}\label{chap:systems-based-on-chord}
 Chord's efficient and scalable architecture has inspired the development of various systems and applications in the field of distributed computing and \gls{p2p} networks.
 These systems leverage the unique properties of Chord's \gls{dht} to achieve robustness, fault tolerance, and efficient resource discovery.
 This chapter explores several notable applications of Chord in different domains, highlighting real-world examples, advantages, disadvantages, and additional details.
@@ -6,7 +6,7 @@ This chapter explores several notable applications of Chord in different domains
 \section{File Sharing Systems}
 One of the most common applications of Chord is in file-sharing systems.
 These systems use Chord's \gls{dht} to store and retrieve files efficiently, ensuring high availability and fault tolerance.
-The \gls{cfs} employs Chord to provide a robust and efficient file storage and retrieval service.
+The \gls{cfs} uses Chord to provide a robust and efficient file storage and retrieval service.
 It distributes file blocks across multiple nodes, ensuring redundancy and fault tolerance, making it suitable for large-scale file distribution.
 \gls{cfs} breaks files into smaller chunks and distributes them across the network to balance the load and enhance data availability.
 This approach not only improves access times but also ensures that the system can recover quickly from node failures, maintaining the integrity and availability of stored files (\cite{Dabek2001}).
@@ -26,7 +26,7 @@ However, conflict resolution can be complex, and there can be potential data inc
 Chord's principles have been applied to the design of distributed databases, providing scalable and fault-tolerant data storage solutions.
 Dynamo, developed by Amazon, is a distributed key-value store that uses concepts similar to Chord for partitioning and replicating data across multiple nodes.
 Dynamo ensures high availability and durability, even in the presence of node failures.
-It employs a consistent hashing mechanism to distribute data evenly across nodes, reducing hotspots and ensuring efficient load balancing.
+It uses a consistent hashing mechanism to distribute data evenly across nodes, reducing hotspots and ensuring efficient load balancing.
 Dynamo's replication and quorum-based techniques allow it to achieve high fault tolerance, making it a cornerstone of Amazon's highly available services (\cite{DeCandia2007}).
 Amazon's Dynamo is the core of many of its services, ensuring consistent performance during events like Black Friday sales.
 The primary advantages of Dynamo include high availability, fault tolerance, efficient load balancing, and scalability.
@@ -42,7 +42,7 @@ However, Cassandra's complexity in data modeling and its eventual consistency mo
 
 \section{\acrlong{cdn}}
 Chord's efficient resource discovery and routing capabilities make it a suitable choice for content distribution networks.
-Coral is a content distribution network that uses Chord to locate and distribute web content efficiently.
+Coral is a \gls{cdn} that uses Chord to locate and distribute web content efficiently.
 It reduces the load on origin servers and enhances the scalability of content delivery.
 By caching web content at various nodes across the network, Coral can quickly serve content to users from the nearest available node, reducing latency and improving user experience.
 The Chord \gls{dht} enables efficient location of cached content, ensuring that requests are routed to the most appropriate node (\cite{CoralCDN2010}).
@@ -50,7 +50,7 @@ CoralCDN is a real-world example, designed to alleviate the load on websites dur
 Coral's advantages include reducing load on origin servers, enhancing scalability, and improving user experience by reducing latency.
 However, maintaining cache consistency can be challenging, and there is potential for uneven distribution of content load.
 
-Vuze, a popular BitTorrent client, utilizes Chord to manage its \gls{dht} for peer discovery and content distribution.
+According to \cite{iliofotou2010comparing}, Vuze is a popular BitTorrent client which utilizes Chord to manage its \gls{dht} for peer discovery and content distribution.
 It enables efficient sharing and downloading of large files in a decentralized manner.
 Vuze leverages Chord to maintain an up-to-date list of peers, facilitating quick and efficient connections between users.
 This approach helps distribute the load of file sharing, ensuring that large files can be downloaded quickly and reliably without relying on central servers.
@@ -69,7 +69,7 @@ However, it depends heavily on volunteer participation, and the availability of 
 
 SETI@home, a distributed computing project aimed at analyzing radio signals for signs of extraterrestrial intelligence, employs Chord to efficiently distribute and manage data analysis tasks across a global network of volunteer computers (\cite{anderson2002seti}).
 By using Chord for task distribution, SETI@home can efficiently allocate computational work to thousands of participants, ensuring that the analysis progresses smoothly and efficiently even as volunteers join and leave the project.
-SETI@home is a pioneering example of distributed computing used for scientific research.
+SETI@home is a modern example of distributed computing used for scientific research.
 Its main advantages include efficient use of distributed resources, engaging the public in scientific research, and scalability.
 However, it relies on volunteer computing resources, and there can be data privacy concerns.
 

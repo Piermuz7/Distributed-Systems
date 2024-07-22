@@ -1,18 +1,36 @@
 \chapter{Introduction}\label{chap:intro}
-% The remainder of the paper is structured as follows:
-
-Distributed systems have become an integral part of modern computing, enabling the development of scalable, efficient, and resilient applications.
-These systems consist of multiple autonomous computers that communicate and coordinate to achieve common goals.
-One significant advancement in distributed systems is the advent of \gls{p2p} architectures, which eliminate the need for centralized control, allowing for greater scalability and fault tolerance.
-
-\section{Evolution of Distributed Systems}
-Historically, distributed systems were designed with a centralized approach, where a single server managed the operations and resources.
-However, this model faced challenges such as single points of failure, scalability limitations, and bottlenecks.
-The need for more resilient and scalable systems led to the development of decentralized architectures, where multiple nodes share control and resources (\cite{distributed-systems}).
-
-\section{Importance of \gls{p2p} Systems}
-
-\gls{p2p} systems emerged as a solution to the limitations of centralized architectures.
-In \gls{p2p} networks, each node can act as both a client and a server, facilitating direct resource sharing among peers.
-This decentralized model offers numerous benefits, including improved scalability, fault tolerance, and resource utilization.
-Applications of \gls{p2p} systems range from file sharing and content distribution to distributed computing and collaborative platforms (Androutsellis-Theotokis \& Spinellis, 2004).
+Distributed systems have become a central focus of research and development in computer science, driving advancements across various domains such as cloud computing, big data analytics, and large-scale web applications.
+These systems consist of multiple autonomous computing entities that communicate and coordinate their actions by passing messages.
+The goal of a distributed system is to make a collection of independent computers appear to its users as a single coherent system, providing significant benefits in terms of performance, scalability, and fault tolerance (\cite{distributed-systems}).
+One of the primary motivations behind the design and implementation of distributed systems is to handle large-scale computation and storage tasks that exceed the capabilities of a single machine.
+By distributing the workload across multiple nodes, these systems can achieve a level of processing power and storage capacity that would be unattainable with a single computer.
+This approach not only enhances computational efficiency but also provides redundancy, thereby improving system reliability and availability (\cite{coulouris2005distributed}).
+The architecture of distributed systems can vary widely, from client-server models to \gls{p2p} networks. In a client-server model, the server provides resources or services, while the clients request and consume these services.
+This model, while straightforward and widely used, can suffer from scalability issues as the number of clients increases.
+On the other hand, \gls{p2p} systems distribute resources among many nodes, with each node functioning as both a client and a server.
+This decentralization can enhance scalability and fault tolerance but introduces complexities in terms of coordination and consistency (\cite{coulouris2005distributed}).
+Consistency and synchronization are critical challenges in distributed systems.
+Ensuring that all nodes in a system have a consistent view of the data, especially in the presence of network partitions and node failures, is a non-trivial problem.
+Various consistency models, such as eventual consistency and strong consistency, provide different guarantees, and the choice of model can significantly impact the system's performance and usability (\cite{vogels2009}).
+Techniques like consensus algorithms (e.g., Paxos, Raft) are employed to achieve agreement among distributed processes or nodes, despite the inherent challenges posed by network unreliability and asynchronous communication (\cite{lamport2001paxos}).
+Fault tolerance is another key aspect of distributed systems, requiring the system to continue operating correctly even in the event of failures. Techniques such as replication, where data is duplicated across multiple nodes, and redundancy, where multiple instances of critical components are maintained, are commonly used to enhance fault tolerance.
+The trade-offs between consistency, availability, and partition tolerance, play a crucial role in the design and evaluation of distributed systems (\cite{vogels2009}).
+Distributed systems also encompass a wide range of applications, from distributed databases and file systems to distributed computing frameworks like Apache Hadoop and Apache Spark.
+These applications leverage the fundamental principles of distributed systems to provide scalable and efficient solutions to complex problems.
+For instance, distributed databases such as Google Spanner and Amazon DynamoDB utilize replication and partitioning to ensure high availability and performance across geographically dispersed data centers (\cite{dean2008mapreduce}).
+In recent years, the advent of cloud computing has further amplified the importance of distributed systems.
+Cloud platforms, such as \gls{aws}, Microsoft Azure, and Google Cloud Platform, provide distributed infrastructure and services that enable organizations to deploy and scale applications with unprecedented ease and flexibility.
+The elasticity of cloud resources allows for dynamic scaling in response to varying workloads, a capability that is inherently reliant on the principles of distributed systems (\cite{distributed-systems}).
+Moreover, the rise of edge computing is pushing the boundaries of distributed systems by bringing computation and data storage closer to the sources of data.
+This paradigm shift aims to reduce latency and bandwidth usage while enhancing privacy and security by processing data locally rather than in centralized data centers.
+Edge computing exemplifies the ongoing evolution and diversification of distributed system architectures to meet the growing demands of real-time and location-sensitive applications (\cite{coulouris2005distributed}).
+Another significant development in the field of distributed systems is the increasing use of blockchain technology.
+Originally devised as the underlying technology for cryptocurrencies, blockchains are now being explored for a variety of applications that require secure, tamper-proof transaction records.
+The decentralized nature of blockchain technology aligns well with the principles of distributed systems, offering new opportunities for creating transparent and resilient systems without a single point of failure (\cite{distributed-systems}).
+In conclusion, distributed systems are the core of modern computing infrastructure, enabling the creation of robust, scalable, and efficient applications that can handle the demands of today's data-intensive and highly interconnected world.
+As research in this field continues to evolve, addressing the challenges of consistency, fault tolerance, and scalability will remain critical to the advancement of distributed technologies.
+These systems are not only a technical achievement but also a fundamental enabler of innovation in numerous areas of science and industry.
+The remainder of the paper is structured as follows: Chapter~\ref{chap:p2p} provides an overview of \gls{p2p} systems, focusing on their architecture, key characteristics, and applications;
+Chapter \ref{chap:chord} introduces the Chord framework, an essential contribution to the field of \gls{p2p} systems, and discusses its design principles, applications, and its advantages and limitations;
+Chapter \ref{chap:systems-based-on-chord} explores systems and applications based on the Chord framework, highlighting their contributions and impact on several distributed domains;
+Chapter \ref{chap:conclusion} concludes the paper by summarizing the key insights of Chord in distributed systems.
