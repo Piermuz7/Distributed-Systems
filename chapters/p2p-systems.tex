@@ -133,7 +133,8 @@ Each node in the network is assigned a number (called ``identifier'' or ID) on a
 Each ID has $m$ bits; there are $2^m$ IDs available and the IDs range from 0 to $(2^m) -1$.
 
 BitTorrent is a widely used \gls{p2p} protocol that leverages structured overlays for efficient content distribution (\cite{BitTorrent2005}).
-BitTorrent's structured \gls{p2p} network uses a \gls{dht} to facilitate the lookup of peers that hold pieces of the desired content.
+
+BitTorrent is an example of unstructured \gls{p2p} system but in an alternative implementation, a node also joins a separate structured \gls{p2p} system like \gls{dht} to facilitate the lookup of peers that hold pieces of the desired content.
 When a user wants to download a file, BitTorrent breaks the file into smaller pieces, and peers exchange these pieces with each other.
 To efficiently locate which peers have which pieces, BitTorrent uses a \gls{dht}.
 
